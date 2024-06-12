@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($input_password, $hashed_password)) {
             // Password is correct, start a new session and save the username
             $_SESSION['username'] = $username;
-            header("Location: welcome.php"); // Redirect to a welcome page or dashboard
+            header("Location: create_invite.html"); // Redirect to a welcome page or dashboard
             exit();
         } else {
             echo "Invalid password.";
