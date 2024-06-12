@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $subject = "Presentation Invite";
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: no-reply@yourdomain.com" . "\r\n";
+        $headers .= "From: web12345678@abv.bg" . "\r\n";
 
         if (mail($to, $subject, $invite, $headers)) {
             echo "Invite has been sent to $to";
