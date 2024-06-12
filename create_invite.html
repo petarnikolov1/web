@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Form</title>
+    <link rel="stylesheet" href="invite.css">
+</head>
+
+<body>
+    <section id="form-section">
+        <h2>Create Your Invitation</h2>
+        <form id="inviteForm" method="POST" action="create_invite.php" enctype="multipart/form-data">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+
+            <label for="hour">Hour:</label>
+            <input type="time" id="hour" name="hour" required><br>
+
+            <label for="presenter">Presenter Name:</label>
+            <input type="text" id="presenter" name="presenter" required><br>
+
+            <label for="faculty_number">Faculty Number:</label>
+            <input type="text" id="faculty_number" name="faculty_number" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="invite_type">Invite Type:</label><br>
+            <input type="radio" id="standard" name="invite_type" value="standard" checked>
+            <label for="standard">Standard</label><br>
+            <input type="radio" id="meme" name="invite_type" value="meme">
+            <label for="meme">Meme</label><br>
+
+            <div id="memeImageField">
+                <label for="meme_image">Meme Image:</label>
+                <input type="file" id="meme_image" name="meme_image"><br>
+            </div>
+
+            <input type="submit" value="Create Invite">
+        </form>
+    </section>
+</body>
+
+</html>
