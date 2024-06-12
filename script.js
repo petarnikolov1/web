@@ -10,3 +10,14 @@ function toggleMemeImageField() {
 
 document.getElementById('meme').addEventListener('change', toggleMemeImageField);
 document.getElementById('standard').addEventListener('change', toggleMemeImageField);
+function openRegisterPage() {
+    window.location.href = 'register.html';
+}
+
+function openLoginPage() {
+    window.location.href = 'login.html';
+}
+
+function scrollToForm() {
+    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+}
