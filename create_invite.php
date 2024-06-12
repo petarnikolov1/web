@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = htmlspecialchars($_POST['date']);
     $hour = htmlspecialchars($_POST['hour']);
@@ -7,10 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = htmlspecialchars($_POST['email']);
     $invite_type = htmlspecialchars($_POST['invite_type']);
 
-    // Connect to database
     $servername = "localhost";
     $username = "root";
-    $password = ""; // Your MySQL root password
+    $password = "";
     $dbname = "presentation_invite_creator";
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -18,20 +22,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    function sendInvite($invite, $to, $email_status, $conn, $faculty_number) {
-        $subject = "Presentation Invite";
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: no-reply@yourdomain.com" . "\r\n";
+    function sendInvite($invite, $to, $conn, $faculty_number) {
+        $mail = new PHPMailer(true);
+        
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'web12345678@abv.bg';
+            $mail->Password = 'Web123456789';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
 
-        if (mail($to, $subject, $invite, $headers)) {
+            $mail->setFrom('web12345678@abv.bg', 'Invite Sender');
+            $mail->addAddress($to);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Presentation Invite';
+            $mail->Body    = $invite;
+
+            $mail->send();
             echo "Invite has been sent to $to";
             $email_status = "sent";
-        } else {
-            echo "Failed to send invite to $to";
+        } catch (Exception $e) {
+            echo "Failed to send invite to $to. Mailer Error: {$mail->ErrorInfo}";
+            $email_status = "failed";
         }
 
-        // Log the invite status in the database
         $sql = "INSERT INTO invite_log (faculty_number, email, status) VALUES ('$faculty_number', '$to', '$email_status')";
         if ($conn->query($sql) === TRUE) {
             echo "Invite log entry added to database";
@@ -41,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($invite_type == "standard") {
-        // Standard invite template
         $invite = "
         <html>
         <head>
@@ -75,15 +91,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p><strong>Hour:</strong> $hour</p>
                 <p><strong>Presenter:</strong> $presenter</p>
                 <p><strong>Faculty Number:</strong> $faculty_number</p>
+            </div>
+        </body>
+        </html>
         ";
 
-        // Display the invite
         echo $invite;
 
-        sendInvite($invite, $email, "not sent", $conn, $faculty_number);
+        sendInvite($invite, $email, $conn, $faculty_number);
 
     } elseif ($invite_type == "meme") {
-        // Meme invite template
         if ($_FILES['meme_image']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['meme_image']['tmp_name'])) {
             $meme_image_tmp = $_FILES['meme_image']['tmp_name'];
             $meme_image_content = addslashes(file_get_contents($meme_image_tmp)); // Prevent SQL injection
@@ -94,7 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
-            // Retrieve the meme image from the database
             $sql = "SELECT meme_image FROM memes ORDER BY id DESC LIMIT 1";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
@@ -143,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </html>
                 ";
                 
-                sendInvite($invite, $email, "not sent", $conn, $faculty_number);
+                sendInvite($invite, $email, $conn, $faculty_number);
             } else {
                 echo "Error retrieving meme image from database";
             }
@@ -152,7 +168,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Close database connection
     $conn->close();
 }
 ?>
