@@ -1,0 +1,67 @@
+#register-section {
+    padding: 50px 20px;
+    background-color: var(--menu-background);
+    color: var(--buttons-dark-color);
+    text-align: center;
+}
+
+#registerForm {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    background: var(--buttons-light-color);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 50px auto;
+    transition: box-shadow 0.3s ease;
+}
+
+#registerForm:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+#registerForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-text-color);
+}
+
+#registerForm input[type="text"],
+#registerForm input[type="email"],
+#registerForm input[type="password"] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    background-color: var(--input-background-color);
+    color: var(--dark-text-color);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+#registerForm input[type="text"]:focus,
+#registerForm input[type="email"]:focus,
+#registerForm input[type="password"]:focus {
+    border-color: var(--buttons-dark-color);
+    background-color: var(--light-text-color);
+    outline: none;
+}
+
+#registerForm input[type="submit"] {
+    background-color: var(--buttons-dark-color);
+    color: var(--light-text-color);
+    border: none;
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#registerForm input[type="submit"]:hover {
+    background-color: var(--buttons-light-color);
+    color: var(--dark-text-color);
+}

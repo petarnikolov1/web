@@ -1,0 +1,101 @@
+:root {
+    --dark-color: #282c34;
+    --buttons-dark-color: #b28b6e;
+    --buttons-light-color: #c5b79a;
+    --light-text-color: white;
+    --text-color: #282c34;
+    --menu-background: #1d2025;
+    --input-border-color: #a89c91;
+    --input-background-color: #f0ece7;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.6;
+    background-color: var(--dark-color);
+    color: var(--light-text-color);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    text-align: center;
+    color: var(--light-text-color);
+}
+
+#form-section {
+    padding: 50px 20px;
+    background-color: var(--menu-background);
+    color: var(--buttons-dark-color);
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    background: var(--buttons-light-color);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 50px auto;
+    transition: box-shadow 0.3s ease;
+}
+
+form:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-text-color);
+}
+
+input[type="date"],
+input[type="time"],
+input[type="text"],
+input[type="email"],
+input[type="file"],
+input[type="submit"] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    background-color: var(--input-background-color);
+    color: var(--dark-text-color);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="file"]:focus {
+    border-color: var(--buttons-dark-color);
+    background-color: var(--light-text-color);
+    outline: none;
+}
+
+#memeImageField {
+    display: none;
+}
+
+input[type="submit"] {
+    background-color: var(--buttons-dark-color);
+    color: var(--light-text-color);
+    border: none;
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--buttons-light-color);
+    color: var(--dark-text-color);
+}

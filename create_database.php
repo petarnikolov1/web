@@ -1,17 +1,14 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = ""; // Your MySQL root password
+$password = "";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Create database
 $sql = "CREATE DATABASE presentation_invite_creator";
 if ($conn->query($sql) === TRUE) {
     echo "Database created successfully\n";
@@ -19,10 +16,8 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating database: " . $conn->error;
 }
 
-// Select the database
 $conn->select_db("presentation_invite_creator");
 
-// Create users table
 $sql = "CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -36,7 +31,6 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating users table: " . $conn->error;
 }
 
-// Create invite_log table
 $sql = "CREATE TABLE invite_log (
     id INT AUTO_INCREMENT PRIMARY KEY,
     faculty_number VARCHAR(50) NOT NULL,
