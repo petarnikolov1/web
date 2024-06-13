@@ -261,7 +261,7 @@ nav ul li a {
     color: var(--light-text-color);
 }
 
-.facebook-group-section {
+#facebook-group-section {
     position: relative;
     background-size: cover;
     background-position: center;

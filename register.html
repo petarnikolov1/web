@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="register_styles.css">
 </head>
+
 <body>
     <div class="register-container">
         <h2>Register</h2>
+        <div class="image-container">
+            <img src="./login_background.jpg" alt="background invites">
+        </div>
         <form action="register.php" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -28,7 +33,8 @@
             </div>
             <button type="submit">Register</button>
         </form>
-        <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        <p>Already have an account? <a href="login.html" id="login">Login here</a>.</p>
     </div>
 </body>
+
 </html>

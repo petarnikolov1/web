@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invite Form</title>
-    <link rel="stylesheet" href="invite.css">
+    <link rel="stylesheet" href="invite_styles.css">
 </head>
 
 <body>
@@ -28,22 +28,28 @@
             <input type="email" id="email" name="email" required><br>
 
             <label for="invite_type">Invite Type:</label><br>
-            <input type="radio" id="standard" name="invite_type" value="standard" checked>
-            <label for="standard">Standard</label><br>
-            <input type="radio" id="meme" name="invite_type" value="meme">
-            <label for="meme">Meme</label><br>
 
-            <div id="memeImageField">
+            <div class="btn-container">
+                <div class="option">
+                    <input type="radio" id="standard" name="invite_type" value="standard" checked>
+                    <label for="standard">Standard</label><br>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="meme" name="invite_type" value="meme">
+                    <label for="meme">Meme</label><br>
+                </div>
+            </div>
+
+            <!-- <div id="memeImageField">
                 <label for="meme_image">Meme Image:</label>
                 <input type="file" id="meme_image" name="meme_image"><br>
-            </div>
+            </div> -->
 
             <input type="submit" value="Create Invite">
         </form>
     </section>
+    
 </body>
 
-<body>
-    <p><a href="logout.php">Logout</a></p>
-</body>
 </html>
