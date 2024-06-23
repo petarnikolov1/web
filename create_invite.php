@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -26,15 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail = new PHPMailer(true);
         
         try {
+            $mail->SMTPDebug = 0;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'web12345678@abv.bg';
-            $mail->Password = 'Web123456789';
+            $mail->Username = 'fintracker96@gmail.com';//web123159@gmail.com
+            $mail->Password = 'uvouppqwzarrbmrf';//@Web123456789
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('web12345678@abv.bg', 'Invite Sender');
+            $mail->setFrom('fintracker96@gmail.com', 'Web presentation invite');
             $mail->addAddress($to);
 
             $mail->isHTML(true);
@@ -42,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Body    = $invite;
 
             $mail->send();
-            echo "Invite has been sent to $to";
             $email_status = "sent";
         } catch (Exception $e) {
             echo "Failed to send invite to $to. Mailer Error: {$mail->ErrorInfo}";
@@ -50,9 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $sql = "INSERT INTO invite_log (faculty_number, email, status) VALUES ('$faculty_number', '$to', '$email_status')";
-        if ($conn->query($sql) === TRUE) {
-            echo "Invite log entry added to database";
-        } else {
+        if (!$conn->query($sql) === TRUE) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
