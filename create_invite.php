@@ -31,12 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'fintracker96@gmail.com';//web123159@gmail.com
-            $mail->Password = 'uvouppqwzarrbmrf';//@Web123456789
+            $mail->Username = 'web123159@gmail.com';//web123159@gmail.com
+            $mail->Password = 'cksbqxuahhkofnrb';//uvouppqwzarrbmrf //cksb qxua hhko fnrb
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('fintracker96@gmail.com', 'Web presentation invite');
+            $mail->setFrom('web123159@gmail.com', 'Web presentation invite');
             $mail->addAddress($to);
 
             $mail->isHTML(true);
@@ -100,70 +100,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         sendInvite($invite, $email, $conn, $faculty_number);
 
     } elseif ($invite_type == "meme") {
-        if ($_FILES['meme_image']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['meme_image']['tmp_name'])) {
-            $meme_image_tmp = $_FILES['meme_image']['tmp_name'];
-            $meme_image_content = addslashes(file_get_contents($meme_image_tmp)); // Prevent SQL injection
-            $sql = "INSERT INTO memes (meme_image) VALUES ('$meme_image_content')";
-            if ($conn->query($sql) === TRUE) {
-                echo "Meme image added to the database";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
+         $sql = "SELECT meme_image FROM memes ORDER BY id DESC LIMIT 1";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $meme_image = imagecreatefromstring($row['meme_image']);
 
-            $sql = "SELECT meme_image FROM memes ORDER BY id DESC LIMIT 1";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $meme_image_encoded = base64_encode($row['meme_image']);
+            if ($meme_image !== false) {
+                $black = imagecolorallocate($meme_image, 0, 0, 0);
+                $font_path = 'path/to/your/font.ttf'; // Provide the path to your TrueType font file
+
+                // Add text to the image
+                imagettftext($meme_image, 20, 0, 10, 30, $black, $font_path, "Date: $date");
+                imagettftext($meme_image, 20, 0, 10, 60, $black, $font_path, "Hour: $hour");
+                imagettftext($meme_image, 20, 0, 10, 90, $black, $font_path, "Presenter: $presenter");
+                imagettftext($meme_image, 20, 0, 10, 120, $black, $font_path, "Faculty Number: $faculty_number");
+
+                ob_start();
+                imagejpeg($meme_image);
+                $image_data = ob_get_contents();
+                ob_end_clean();
+
+                imagedestroy($meme_image);
 
                 $invite = "
                 <html>
                 <head>
                     <title>Presentation Invite</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            text-align: center;
-                            padding: 50px;
-                            background: url('path/to/your/meme.jpg') no-repeat center center fixed;
-                            background-size: cover;
-                        }
-                        .invite {
-                            background: rgba(255, 255, 255, 0.8);
-                            border: 2px solid #ccc;
-                            padding: 20px;
-                            border-radius: 10px;
-                            display: inline-block;
-                            max-width: 600px;
-                            margin: auto;
-                        }
-                        .invite h2 {
-                            color: #5cb85c;
-                        }
-                        .invite p {
-                            font-size: 18px;
-                        }
-                    </style>
                 </head>
                 <body>
-                    <div class='invite'>
-                        <h2>Presentation Invite</h2>
-                        <p><strong>Date:</strong> $date</p>
-                        <p><strong>Hour:</strong> $hour</p>
-                        <p><strong>Presenter:</strong> $presenter</p>
-                        <p><strong>Faculty Number:</strong> $faculty_number</p>
-                        <img src='data:image/jpeg;base64,$meme_image_encoded' alt='Meme Image'>
-                    </div>
+                    <h2>Presentation Invite</h2>
+                    <img src='data:image/jpeg;base64," . base64_encode($image_data) . "' alt='Meme Image'>
                 </body>
                 </html>
                 ";
-                
+
                 sendInvite($invite, $email, $conn, $faculty_number);
             } else {
-                echo "Error retrieving meme image from database";
+                echo "Error creating image from meme data.";
             }
         } else {
-            echo "Failed to upload meme image.";
+            echo "No meme image found in the database.";
         }
     }
 
