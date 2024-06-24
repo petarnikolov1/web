@@ -23,9 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    function sendInvite($invite, $to, $conn, $faculty_number) {
+    function sendInvite($invite, $to, $conn, $faculty_number, $imagePath = null)
+    {
         $mail = new PHPMailer(true);
-        
+
         try {
             $mail->SMTPDebug = 0;
             $mail->isSMTP();
@@ -38,10 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->setFrom('web123159@gmail.com', 'Web presentation invite');
             $mail->addAddress($to);
+            
+            if ($imagePath) {
+                $mail->addAttachment($imagePath);
+                $mail->Body = "Invite meme";
+            } else {
+                $mail->Body = $invite;
+            }
 
             $mail->isHTML(true);
             $mail->Subject = 'Presentation Invite';
-            $mail->Body    = $invite;
+            
 
             $mail->send();
             $email_status = "sent";
@@ -100,48 +108,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         sendInvite($invite, $email, $conn, $faculty_number);
 
     } elseif ($invite_type == "meme") {
-         $sql = "SELECT meme_image FROM memes ORDER BY id DESC LIMIT 1";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $meme_image = imagecreatefromstring($row['meme_image']);
+        $sql = "SELECT meme_image FROM memes ORDER BY RAND() LIMIT 1";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $meme_image_content = $row['meme_image'];
+    $meme_image = imagecreatefromstring($meme_image_content);
 
-            if ($meme_image !== false) {
-                $black = imagecolorallocate($meme_image, 0, 0, 0);
-                $font_path = 'path/to/your/font.ttf'; // Provide the path to your TrueType font file
+    if ($meme_image !== false) {
+        $font_path = 'DejaVuSans.ttf';
+        $text_color = imagecolorallocate($meme_image, 0, 0, 0);
 
-                // Add text to the image
-                imagettftext($meme_image, 20, 0, 10, 30, $black, $font_path, "Date: $date");
-                imagettftext($meme_image, 20, 0, 10, 60, $black, $font_path, "Hour: $hour");
-                imagettftext($meme_image, 20, 0, 10, 90, $black, $font_path, "Presenter: $presenter");
-                imagettftext($meme_image, 20, 0, 10, 120, $black, $font_path, "Faculty Number: $faculty_number");
+        // Размер на шрифта
+        $font_size = 15;
 
-                ob_start();
-                imagejpeg($meme_image);
-                $image_data = ob_get_contents();
-                ob_end_clean();
+        // Измерете размера на изображението
+        $image_width = imagesx($meme_image);
+        $image_height = imagesy($meme_image);
 
-                imagedestroy($meme_image);
+        // Текстът на кирилица
+        $text = "Ела на $date във ФМИ от $hour ще презентира $presenter ($faculty_number)";
+        
+        // Разделете текста на два реда
+        $text_lines = explode("\n", wordwrap($text, 50)); // 50 е примерен брой символи на ред
 
-                $invite = "
-                <html>
-                <head>
-                    <title>Presentation Invite</title>
-                </head>
-                <body>
-                    <h2>Presentation Invite</h2>
-                    <img src='data:image/jpeg;base64," . base64_encode($image_data) . "' alt='Meme Image'>
-                </body>
-                </html>
-                ";
+        // Изчислете позицията за текста
+        $line_height = $font_size + 10; // Примерна височина на реда, може да се коригира
+        $y = 70; // 20 пиксела отстояние от дъното
 
-                sendInvite($invite, $email, $conn, $faculty_number);
-            } else {
-                echo "Error creating image from meme data.";
-            }
-        } else {
-            echo "No meme image found in the database.";
+        foreach ($text_lines as $line) {
+            // Измерете ширината на текста
+            $bbox = imagettfbbox($font_size, 0, $font_path, $line);
+            $text_width = $bbox[2] - $bbox[0];
+
+            // Изчислете x позицията, за да центрирате текста
+            $x = ($image_width - $text_width) / 2;
+
+            // Добавете текста към изображението
+            imagettftext($meme_image, $font_size, 0, $x, $y, $text_color, $font_path, $line);
+
+            // Увеличете y позицията за следващия ред
+            $y += $line_height;
         }
+        // Задайте заглавка за изображението
+        header('Content-Type: image/jpeg');
+
+        // Изведете изображението директно към изхода
+        imagejpeg($meme_image);
+
+        // Запазете изображението във файл
+        $imagePath = 'modified_meme.jpg';
+        imagejpeg($meme_image, $imagePath);
+        imagedestroy($meme_image);
+
+        $invite = "";
+
+
+        sendInvite($invite, $email, $conn, $faculty_number, $imagePath);
+        unlink($imagePath);
+    } else {
+        echo "Error creating image from database content.";
+    }
+} else {
+    echo "No meme image found in the database.";
+}
     }
 
     $conn->close();
