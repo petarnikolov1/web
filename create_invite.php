@@ -119,44 +119,33 @@ if ($result->num_rows > 0) {
         $font_path = 'DejaVuSans.ttf';
         $text_color = imagecolorallocate($meme_image, 0, 0, 0);
 
-        // Размер на шрифта
         $font_size = 15;
 
-        // Измерете размера на изображението
         $image_width = imagesx($meme_image);
         $image_height = imagesy($meme_image);
 
-        // Текстът на кирилица
         $text = "Ела на $date във ФМИ от $hour ще презентира $presenter ($faculty_number)";
-        
-        // Разделете текста на два реда
-        $text_lines = explode("\n", wordwrap($text, 50)); // 50 е примерен брой символи на ред
 
-        // Изчислете позицията за текста
-        $line_height = $font_size + 10; // Примерна височина на реда, може да се коригира
-        $y = 70; // 20 пиксела отстояние от дъното
+        $text_lines = explode("\n", wordwrap($text, 50)); 
+
+        $line_height = $font_size + 10; 
+        $y = 70;
 
         foreach ($text_lines as $line) {
-            // Измерете ширината на текста
             $bbox = imagettfbbox($font_size, 0, $font_path, $line);
             $text_width = $bbox[2] - $bbox[0];
 
-            // Изчислете x позицията, за да центрирате текста
             $x = ($image_width - $text_width) / 2;
 
-            // Добавете текста към изображението
             imagettftext($meme_image, $font_size, 0, $x, $y, $text_color, $font_path, $line);
 
-            // Увеличете y позицията за следващия ред
             $y += $line_height;
         }
-        // Задайте заглавка за изображението
+
         header('Content-Type: image/jpeg');
 
-        // Изведете изображението директно към изхода
         imagejpeg($meme_image);
 
-        // Запазете изображението във файл
         $imagePath = 'modified_meme.jpg';
         imagejpeg($meme_image, $imagePath);
         imagedestroy($meme_image);
