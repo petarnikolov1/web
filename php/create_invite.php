@@ -69,9 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->Body = $invite;
             }
 
+            if ($imagePath) {
+                $mail->addAttachment($imagePath);
+                $mail->Body = "Invite meme";
+            } else {
+                $mail->Body = $invite;
+            }
+
             $mail->isHTML(true);
             $mail->Subject = 'Presentation Invite';
-
 
             $mail->send();
             $email_status = "sent";
@@ -116,11 +122,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <body>
             <div class='invite'>
                 <h2>Presentation Invite</h2>
-                <h3><strong>Topic:</strong> $topic</h3>
                 <p><strong>Date:</strong> $date</p>
                 <p><strong>Hour:</strong> $hour</p>
                 <p><strong>Presenter:</strong> $presenter</p>
                 <p><strong>Faculty Number:</strong> $faculty_number</p>
+                <p><strong>Topic:</strong> $topic</p>
             </div>
         </body>
         </html>
@@ -149,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $text = "Ела на $date във ФМИ от $hour ще презентира $presenter ($faculty_number) на тема $topic";
 
-                $text_lines = explode("\n", wordwrap($text, 50));
+                $text_lines = explode("\n", wordwrap($text, 70));
 
                 $line_height = $font_size + 10;
                 $y = 60;

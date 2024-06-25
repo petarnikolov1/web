@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2024 at 06:25 PM
+-- Generation Time: Jun 26, 2024 at 12:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -81,7 +81,83 @@ INSERT INTO `invite_log` (`id`, `faculty_number`, `email`, `status`) VALUES
 (40, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
 (41, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
 (42, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
-(43, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent');
+(43, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(44, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(45, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(46, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(47, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(48, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(49, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(50, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(51, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(52, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(53, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(54, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(55, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(56, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(57, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(58, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(59, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(60, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(61, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(62, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(63, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(64, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(65, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(66, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(67, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(68, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(69, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(70, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(71, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(72, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(73, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(74, 'd', 'pe', 'failed'),
+(75, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(76, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(77, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(78, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(79, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(80, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(81, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(82, 'd', 'pepinikolov2010@gmail.com', 'sent'),
+(83, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(84, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(85, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(86, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(87, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(88, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(89, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(90, 'd', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(91, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(92, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(93, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(94, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(95, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(96, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(97, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(98, '6MI0600087', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(99, '6MI0600087', 'pepinikolov2010@gmail.com', 'sent'),
+(100, '6MI0600087', 'pepinikolov2010@gmail.com', 'sent'),
+(101, '6MI0600087', 'pepinikolov2010@gmail.com', 'sent'),
+(102, 'MI2346', 'aleksandar.sv.kiryakov@gmail.com', 'sent'),
+(103, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(104, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(105, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(106, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(107, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(108, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(109, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(110, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(111, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(112, 'MI2346', 'aleksandar.sv.kirya1kov@gmail.com', 'sent'),
+(113, 'MI2346', 'arrs@abv.bg', 'sent'),
+(114, 'MI2346', 'pepinikolov2010@abv.bg', 'sent'),
+(115, 'MI2346', 'pepinikolov2010@abv.bg', 'sent'),
+(116, 'MI2346', 'pepinikolov2010@abv.bg', 'sent'),
+(117, 'MI2346', 'pepinikolov2010@abv.bg', 'sent'),
+(118, 'MI2346', 'pepinikolov2010@abv.bg', 'sent'),
+(119, 'MI2346', 'aleksandar.sv.kiryakov@gmail.com', 'sent');
 
 -- --------------------------------------------------------
 
@@ -111,23 +187,19 @@ INSERT INTO `memes` (`id`, `meme_image`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `faculty_number` varchar(50) NOT NULL,
+  `full_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
-(1, 'a', 'sashko159@abv.bg', '$2y$10$hwbZSZuY/nKwhMW9GuLsleekZB/ofaiJs7qfV0JilNQLNMifpnXvO', '2024-06-13 00:27:24'),
-(2, 'v', 'v@abv.bg', '$2y$10$/pGSix/kHX/ldJv.wonYOuKHwLItaYvhHxI6XL2W5SJs7sDd0QCM.', '2024-06-13 00:34:05'),
-(9, 'vdas', 'vca@abv.bg', '$2y$10$Hbvt30E19Iuwk0W8S2mzRecprUSiUXTkxBBDxoDyvdJM78u3hAkeu', '2024-06-13 00:36:42'),
-(17, 'ads', 'arrs@abv.bg', '$2y$10$2w.sIY2jKgrihB5KB8Xhh.135AeadhOdLEiRb4dWg2cp7hzQUarVu', '2024-06-13 00:43:37'),
-(18, 'r', 'aca@abv.bg', '$2y$10$1c6tcC/fPfxG6DoWeXsoLeVn19rRgWVpZnq8catvqxnCCPdQB42ta', '2024-06-13 00:44:04'),
-(19, 'dd', 'ddd@abv.bg', '$2y$10$GfqL8NuuE4nV/o3a0w9mceHc4amTsLwM8/cS8NrFLNbAuOYk/VMvq', '2024-06-13 00:45:51');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `faculty_number`, `full_name`) VALUES
+(15, 'kiryakov', 'aleksandar.sv.kiryakov@gmail.com', '$2y$10$6U0tgranuzpjm6SbNuFU1OGXIetuiFvAnu7ydKEWyf/yMrgcEg5G2', '', '');
 
 --
 -- Indexes for dumped tables
@@ -149,9 +221,7 @@ ALTER TABLE `memes`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -161,7 +231,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `invite_log`
 --
 ALTER TABLE `invite_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `memes`
