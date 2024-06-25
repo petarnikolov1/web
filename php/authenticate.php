@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (password_verify($input_password, $hashed_password)) {
             $_SESSION['username'] = $username;
-            header("Location: create_invite.html");
+            header("Location: ../create_invite.html");
             exit();
         } else {
             echo "Invalid password.";

@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
-        header("Location: register.html");
+        header("Location: ../register.html");
         echo '<div style="color: red;">';
         echo "User with this email already exists.";
         echo '</div>';
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $username, $email, $hashed_password);
 
     if ($stmt->execute()) {
-        header("Location: login.html");
+        header("Location: ../login.html");
         exit();
     } else {
         echo "Error: " . $stmt->error;
