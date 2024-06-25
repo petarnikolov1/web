@@ -61,6 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->setFrom('web123159@gmail.com', 'Web presentation invite');
             $mail->addAddress($to);
+            
+            if ($imagePath) {
+                $mail->addAttachment($imagePath);
+                $mail->Body = "Invite meme";
+            } else {
+                $mail->Body = $invite;
+            }
 
             if ($imagePath) {
                 $mail->addAttachment($imagePath);
@@ -71,7 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->isHTML(true);
             $mail->Subject = 'Presentation Invite';
-
 
             $mail->send();
             $email_status = "sent";
@@ -132,6 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } elseif ($invite_type == "meme") {
         $sql = "SELECT meme_image FROM memes ORDER BY RAND() LIMIT 1";
+		
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -184,6 +191,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "No meme image found in the database.";
         }
+
+        header('Content-Type: image/jpeg');
+
+        imagejpeg($meme_image);
+
+        $imagePath = 'modified_meme.jpg';
+        imagejpeg($meme_image, $imagePath);
+        imagedestroy($meme_image);
+
+        $invite = "";
+
+
+        sendInvite($invite, $email, $conn, $faculty_number, $imagePath);
+        unlink($imagePath);
+    } else {
+        echo "Error creating image from database content.";
+    }
+} else {
+    echo "No meme image found in the database.";
+}
     }
 
     $conn->close();
