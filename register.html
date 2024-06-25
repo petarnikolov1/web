@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="register_styles.css">
+    <link rel="stylesheet" href="./styles/register_styles.css">
 </head>
 
 <body>
     <div class="register-container">
         <h2>Register</h2>
         <div class="image-container">
-            <img src="./login_background.jpg" alt="background invites">
+            <img src="./data/images/login_background.jpg" alt="background invites">
         </div>
-        <form action="register.php" method="POST">
+        <form action="./php/register.php" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -41,7 +41,7 @@
             </div>
             <button type="submit">Register</button>
         </form>
-        <p>Already have an account? <a href="login.html" id="login">Login here</a>.</p>
+        <p>Already have an account? <a href="./login.html" id="login">Login here</a>.</p>
     </div>
 </body>
 

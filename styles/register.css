@@ -31,7 +31,7 @@
 #registerForm input[type="text"],
 #registerForm input[type="email"],
 #registerForm input[type="password"],
-#registerForm input[type="number"] { /* Добавен тип number за факултетния номер */
+#registerForm input[type="number"] { 
     width: 100%;
     margin-bottom: 20px;
     padding: 12px;
@@ -46,7 +46,7 @@
 #registerForm input[type="text"]:focus,
 #registerForm input[type="email"]:focus,
 #registerForm input[type="password"]:focus,
-#registerForm input[type="number"]:focus { /* Подобрена стилизация при фокус */
+#registerForm input[type="number"]:focus { 
     border-color: var(--buttons-dark-color);
     background-color: var(--light-text-color);
     outline: none;

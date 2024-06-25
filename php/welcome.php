@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    header("Location: login.html");
+    header("Location: ../login.html");
     exit();
 }
 ?>
@@ -16,6 +16,6 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
     <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-    <p><a href="logout.php">Logout</a></p>
+    <p><a href="./logout.php">Logout</a></p>
 </body>
 </html>

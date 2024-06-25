@@ -3,7 +3,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+require './vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = htmlspecialchars($_POST['date']);
@@ -12,6 +12,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $faculty_number = htmlspecialchars($_POST['faculty_number']);
     $email = htmlspecialchars($_POST['email']);
     $invite_type = htmlspecialchars($_POST['invite_type']);
+
+    $topic = null;
+    $isValid = false;
+
+    if (($handle = fopen("../data/presentations_info.csv", "r")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            if (trim($data[1]) === trim($presenter) && trim($data[2]) === trim($faculty_number) && trim($data[3]) === trim($date) && trim($data[4]) === trim($hour)) {
+                $topic = trim($data[0]);
+                $isValid = true;
+                break;
+            }
+        }
+        fclose($handle);
+    } else {
+        echo "Failed to open the CSV file.";
+        exit;
+    }
+
+    if (!$isValid) {
+        echo "The data provided doesn't match a valid presentor data.\nPlease check your data or sign in for a presentation time slot";
+        exit;
+    }
 
     $servername = "localhost";
     $username = "root";
@@ -39,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->setFrom('web123159@gmail.com', 'Web presentation invite');
             $mail->addAddress($to);
-            
+
             if ($imagePath) {
                 $mail->addAttachment($imagePath);
                 $mail->Body = "Invite meme";
@@ -49,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->isHTML(true);
             $mail->Subject = 'Presentation Invite';
-            
+
 
             $mail->send();
             $email_status = "sent";
@@ -94,6 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <body>
             <div class='invite'>
                 <h2>Presentation Invite</h2>
+                <h3><strong>Topic:</strong> $topic</h3>
                 <p><strong>Date:</strong> $date</p>
                 <p><strong>Hour:</strong> $hour</p>
                 <p><strong>Presenter:</strong> $presenter</p>
@@ -109,58 +132,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } elseif ($invite_type == "meme") {
         $sql = "SELECT meme_image FROM memes ORDER BY RAND() LIMIT 1";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $meme_image_content = $row['meme_image'];
-    $meme_image = imagecreatefromstring($meme_image_content);
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $meme_image_content = $row['meme_image'];
+            $meme_image = imagecreatefromstring($meme_image_content);
 
-    if ($meme_image !== false) {
-        $font_path = 'DejaVuSans.ttf';
-        $text_color = imagecolorallocate($meme_image, 0, 0, 0);
+            if ($meme_image !== false) {
+                $font_path = '../data/DejaVuSans.ttf';
+                $text_color = imagecolorallocate($meme_image, 0, 0, 0);
 
-        $font_size = 15;
+                $font_size = 15;
 
-        $image_width = imagesx($meme_image);
-        $image_height = imagesy($meme_image);
+                $image_width = imagesx($meme_image);
+                $image_height = imagesy($meme_image);
 
-        $text = "Ела на $date във ФМИ от $hour ще презентира $presenter ($faculty_number)";
+                $text = "Ела на $date във ФМИ от $hour ще презентира $presenter ($faculty_number) на тема $topic";
 
-        $text_lines = explode("\n", wordwrap($text, 50)); 
+                $text_lines = explode("\n", wordwrap($text, 50));
 
-        $line_height = $font_size + 10; 
-        $y = 70;
+                $line_height = $font_size + 10;
+                $y = 60;
 
-        foreach ($text_lines as $line) {
-            $bbox = imagettfbbox($font_size, 0, $font_path, $line);
-            $text_width = $bbox[2] - $bbox[0];
+                foreach ($text_lines as $line) {
+                    $bbox = imagettfbbox($font_size, 0, $font_path, $line);
+                    $text_width = $bbox[2] - $bbox[0];
 
-            $x = ($image_width - $text_width) / 2;
+                    $x = ($image_width - $text_width) / 2;
 
-            imagettftext($meme_image, $font_size, 0, $x, $y, $text_color, $font_path, $line);
+                    imagettftext($meme_image, $font_size, 0, $x, $y, $text_color, $font_path, $line);
 
-            $y += $line_height;
+                    $y += $line_height;
+                }
+
+                header('Content-Type: image/jpeg');
+
+                imagejpeg($meme_image);
+
+                $imagePath = 'modified_meme.jpg';
+                imagejpeg($meme_image, $imagePath);
+                imagedestroy($meme_image);
+
+                $invite = "";
+
+
+                sendInvite($invite, $email, $conn, $faculty_number, $imagePath);
+                unlink($imagePath);
+            } else {
+                echo "Error creating image from database content.";
+            }
+        } else {
+            echo "No meme image found in the database.";
         }
-
-        header('Content-Type: image/jpeg');
-
-        imagejpeg($meme_image);
-
-        $imagePath = 'modified_meme.jpg';
-        imagejpeg($meme_image, $imagePath);
-        imagedestroy($meme_image);
-
-        $invite = "";
-
-
-        sendInvite($invite, $email, $conn, $faculty_number, $imagePath);
-        unlink($imagePath);
-    } else {
-        echo "Error creating image from database content.";
-    }
-} else {
-    echo "No meme image found in the database.";
-}
     }
 
     $conn->close();

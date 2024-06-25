@@ -11,11 +11,11 @@ function toggleMemeImageField() {
 document.getElementById('meme').addEventListener('change', toggleMemeImageField);
 document.getElementById('standard').addEventListener('change', toggleMemeImageField);
 function openRegisterPage() {
-    window.location.href = 'register.html';
+    window.location.href = './register.html';
 }
 
 function openLoginPage() {
-    window.location.href = 'login.html';
+    window.location.href = './login.html';
 }
 
 function scrollToForm() {
