@@ -9,15 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Passwords do not match.";
         exit();
     }
-
+    protected Database $database = new Database();
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $servername = "localhost";
-    $db_username = "root";
-    $db_password = "";
-    $dbname = "presentation_invite_creator";
-
-    $conn = new mysqli($servername, $db_username, $db_password, $dbname);
+    $conn = $this->database->getConnection();
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -53,7 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $stmt->error;
     }
 
-    $stmt->close();
     $conn->close();
 }
 ?>
